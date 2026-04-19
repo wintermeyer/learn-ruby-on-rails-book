@@ -42,7 +42,12 @@ log "Repo: ${REPO_DIR}"
 # not already present on the runner. A no-op on subsequent deploys.
 # Non-fatal on failure — maybe the runner has the tools already or
 # the registry is flaky; we'll find out soon enough at the next step.
+#
+# ruby.compile=false pulls precompiled ruby binaries instead of
+# building from source, which dodges the libyaml-dev / psych
+# requirement on bremen2's Debian host.
 if command -v mise >/dev/null 2>&1; then
+  mise settings ruby.compile=false 2>/dev/null || true
   mise install || log "WARN: mise install failed, proceeding with current PATH"
 fi
 
