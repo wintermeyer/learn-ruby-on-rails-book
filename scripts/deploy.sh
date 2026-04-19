@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Deploy the Learn Ruby on Rails book (Antora) to bremen2 under
-# /var/www/learn-ruby-on-rails-book/releases/<timestamp>/ and
+# /var/www/rails-book/releases/<timestamp>/ and
 # atomically swap the `current` symlink.
 #
 # Runs on the `books` self-hosted GitHub Actions runner dedicated
@@ -20,7 +20,7 @@ elif [ -x "$HOME/.local/bin/mise" ]; then
 fi
 export PATH="${HOME}/.local/share/mise/shims:${PATH}"
 
-APP_DIR="/var/www/learn-ruby-on-rails-book"
+APP_DIR="/var/www/rails-book"
 RELEASES_DIR="${APP_DIR}/releases"
 CURRENT_LINK="${APP_DIR}/current"
 SHARED_DIR="${APP_DIR}/shared"

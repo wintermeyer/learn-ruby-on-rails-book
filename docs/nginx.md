@@ -1,7 +1,7 @@
 # Nginx setup on bremen2 for `/rails/book/`
 
 One-time setup. The Rails book deploy just refreshes
-`/var/www/learn-ruby-on-rails-book/current/`; nginx has to be told to
+`/var/www/rails-book/current/`; nginx has to be told to
 serve that path under `/rails/book/` on the `wintermeyer-consulting.de`
 vhost.
 
@@ -12,8 +12,8 @@ simplest — it already owns `/var/www/elixir-phoenix-ash/` and is the
 one the GitHub Actions runner executes as):
 
 ```sh
-sudo mkdir -p /var/www/learn-ruby-on-rails-book/{releases,shared}
-sudo chown -R eliph:eliph /var/www/learn-ruby-on-rails-book
+sudo mkdir -p /var/www/rails-book/{releases,shared}
+sudo chown -R eliph:eliph /var/www/rails-book
 ```
 
 ## 2. Nginx location block
@@ -26,7 +26,7 @@ resolve to the wrong filesystem path.
 ```nginx
 # Rails book — static Asciidoctor output rebuilt on every push to main.
 location /rails/book/ {
-    alias /var/www/learn-ruby-on-rails-book/current/;
+    alias /var/www/rails-book/current/;
     try_files $uri $uri/ /learn-ruby-on-rails.html;
     add_header Cache-Control "public, max-age=300";
 }
@@ -66,7 +66,7 @@ Both should return `HTTP/2 200` once the first deploy has populated
   symlink at a previous release:
 
   ```sh
-  ls /var/www/learn-ruby-on-rails-book/releases/
-  ln -sfn /var/www/learn-ruby-on-rails-book/releases/<older-ts> \
-         /var/www/learn-ruby-on-rails-book/current
+  ls /var/www/rails-book/releases/
+  ln -sfn /var/www/rails-book/releases/<older-ts> \
+         /var/www/rails-book/current
   ```

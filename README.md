@@ -79,12 +79,12 @@ The runner checks the repo out and executes `scripts/deploy.sh`:
 3. `npm ci` installs Antora.
 4. `npx antora --fetch antora-playbook.yml` renders into
    `build/site/`; the UI bundle is pulled from wincon-antora-ui.
-5. Copy `build/site/` → `/var/www/learn-ruby-on-rails-book/releases/<ts>/`.
+5. Copy `build/site/` → `/var/www/rails-book/releases/<ts>/`.
 6. Atomically swap the `current` symlink.
 7. Prune old releases (keep last 5).
 
 Nginx on bremen2 serves `/rails/book/` from
-`/var/www/learn-ruby-on-rails-book/current/book/` and
+`/var/www/rails-book/current/book/` and
 `/rails/antora-assets/` from `…/current/antora-assets/` (see
 [`docs/nginx.md`](docs/nginx.md)).
 
