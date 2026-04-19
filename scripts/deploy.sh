@@ -13,12 +13,15 @@
 set -euo pipefail
 
 # Activate mise so ruby / bundle / node / npm / npx resolve on the
-# non-interactive shell GitHub Actions spawns.
+# non-interactive shell GitHub Actions spawns. `mise activate` only
+# wires the shim dir for interactive shells, so also prepend the
+# shim dir to PATH explicitly for this script.
 if command -v mise >/dev/null 2>&1; then
   eval "$(mise activate bash)"
 elif [ -x "$HOME/.local/bin/mise" ]; then
   eval "$("$HOME/.local/bin/mise" activate bash)"
 fi
+export PATH="${HOME}/.local/share/mise/shims:${PATH}"
 
 APP_DIR="/var/www/learn-ruby-on-rails-book"
 RELEASES_DIR="${APP_DIR}/releases"
