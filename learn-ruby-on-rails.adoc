@@ -7,7 +7,7 @@ Stefan Wintermeyer
 :imagesdir: images
 :icons: font
 :media: prepress
-:toc:
+:toc: left
 :toclevels: 2
 :source-highlighter: rouge
 :pdf-page-size: [6in, 9in]

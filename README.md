@@ -9,6 +9,22 @@ refresh include Hotwire (Turbo + Stimulus), the built-in
 authentication generator, and the Solid trifecta (Solid Queue /
 Solid Cache / Solid Cable).
 
+## Design
+
+The HTML output is styled to match
+[wintermeyer-consulting.de](https://www.wintermeyer-consulting.de)
+(source repo [`wintermeyer/wincon`](https://github.com/wintermeyer/wincon)):
+system fonts only (Georgia for headings, system sans for body,
+ui-monospace for labels), dark mode via `prefers-color-scheme`, lime
+accent on a neutral palette. When the parent site's design tokens
+change, mirror them in `assets/book.css`.
+
+Multi-page HTML is produced with `asciidoctor-multipage` — one
+HTML file per chapter, plus a landing page with the full table of
+contents. The `scripts/wrap_pages.rb` post-processor injects the
+wincon nav bar at the top of every chapter and the wincon footer
+at the bottom.
+
 ## Requirements
 
 - Ruby 4.0 (`mise use --global ruby@4.0` recommended)

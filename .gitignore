@@ -3,8 +3,10 @@
 /.bundle/
 /output/
 /.scratch/
-*.html
-*.pdf
-*.xml
-*.tex
-*.log
+# Ignore generated artifacts at the repo root, but keep anything
+# checked into subdirectories (e.g. assets/nav.html, assets/footer.html).
+/*.html
+/*.pdf
+/*.xml
+/*.tex
+/*.log
