@@ -48,13 +48,14 @@ fi
 log "Fetching latest nav + footer partials from wincon..."
 ./scripts/fetch-partials.sh
 
-log "Building UI bundle..."
-( cd "${REPO_DIR}/ui-bundle" && npm ci --no-audit --no-fund && npm run build )
-
 log "Installing Antora..."
 ( cd "${REPO_DIR}" && npm ci --no-audit --no-fund )
 
 log "Rendering site..."
+# --fetch refreshes both the content source (this repo) and the UI
+# bundle (wincon-antora-ui/releases/latest/ui-bundle.zip). The UI
+# bundle's snapshot:true in the playbook tells Antora not to cache
+# across runs, so a fresh bundle is always pulled.
 ( cd "${REPO_DIR}" && npx antora --fetch antora-playbook.yml )
 
 if [ ! -d "${REPO_DIR}/build/site/book" ]; then

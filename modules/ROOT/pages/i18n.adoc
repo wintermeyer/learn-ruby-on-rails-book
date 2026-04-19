@@ -1042,7 +1042,7 @@ end
 
 Now you always get the output in the language defined in the web
 browser. Please note that
-`request.env['HTTP_ACCEPT_LANGUAGE'].scan(/^[a-z]{2}/).first` does not
+`request.env['HTTP_ACCEPT_LANGUAGE'].scan(/^[a-z]\{2}/).first` does not
 catch all cases. For example, you should make sure that you support the
 specified language in your Rails application in the first place. There
 are some ready-made gems that can easily do this job for you. Have a

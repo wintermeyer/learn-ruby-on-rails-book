@@ -2521,7 +2521,7 @@ $ bin/rails db:migrate
 ----
 
 `Car` and `Bike` are clear. For `Tag` we use the migration shortcut
-`taggable:references{polymorphic}` to generate the fields
+`taggable:references\{polymorphic}` to generate the fields
 `taggable_type` and `taggable_id`, to give ActiveRecord an opportunity
 to save the assignment for the polymorphic association. We have to enter
 it accordingly in the model.

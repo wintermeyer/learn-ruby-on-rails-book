@@ -1,14 +1,18 @@
 #!/usr/bin/env bash
-# Fetch the canonical nav + footer partials from wincon and overwrite
-# ui-bundle/src/partials/{header,footer}-content.hbs before the UI
-# bundle is built.
+# Fetch the canonical nav + footer partials from wincon and write
+# them into ./ui-supplemental/partials/ so Antora overrides the
+# header-content.hbs / footer-content.hbs shipped with the shared
+# UI bundle (wintermeyer/wincon-antora-ui).
 #
 # Source of truth: https://wintermeyer-consulting.de/partials/
 # (served from wincon/priv/static/partials/).
 #
 # Falls back to the GitHub raw URL when production is unreachable.
-# Keeps the committed .hbs files as-is on total failure so deploys
-# do not break on a transient network glitch.
+#
+# On total failure the supplemental files are left in whatever state
+# the previous run put them in (or absent on first deploy), so
+# Antora falls back to the bundle defaults. Deploys never break on
+# a transient wincon outage.
 
 set -u
 
@@ -18,7 +22,8 @@ BOOK_CURRENT="rails"
 
 cd "$(dirname "$0")/.."
 
-PARTIALS_DIR="ui-bundle/src/partials"
+PARTIALS_DIR="ui-supplemental/partials"
+mkdir -p "${PARTIALS_DIR}"
 
 try_fetch() {
   local source_name="$1"

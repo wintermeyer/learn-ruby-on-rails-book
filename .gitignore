@@ -1,6 +1,5 @@
 .DS_Store
 /node_modules/
-/ui-bundle/node_modules/
-/ui-bundle/build/
 /build/
-/Gemfile.lock
+# Generated at deploy time by scripts/fetch-partials.sh.
+/ui-supplemental/

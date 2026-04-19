@@ -8,8 +8,9 @@ content:
     branches: main
 ui:
   bundle:
-    url: ./ui-bundle/build/ui-bundle.zip
+    url: https://github.com/wintermeyer/wincon-antora-ui/releases/download/latest/ui-bundle.zip
     snapshot: true
+  supplemental_files: ./ui-supplemental
   output_dir: antora-assets
 runtime:
   fetch: true
