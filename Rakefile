@@ -1,4 +1,4 @@
-SOURCE  = "learn-rails-52.adoc"
+SOURCE  = "learn-ruby-on-rails.adoc"
 OUT_DIR = "output"
 
 directory OUT_DIR
