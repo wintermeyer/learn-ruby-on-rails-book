@@ -27,3 +27,19 @@ German. Please contact me with background information (group size,
 location, preferred date) at
 mailto:sw@wintermeyer-consulting.de[sw@wintermeyer-consulting.de]
 to discuss details.
+
+== Don't be a stranger
+
+A book like this gets better every time a reader sends me a note.
+
+* Did a chapter click, or did it leave you more confused than
+  before? Either answer is useful.
+* Found a typo, a broken example, code that no longer works on
+  the current Rails or Ruby version, a link that 404s?
+* Missing a topic you expected? Or curious about something this
+  book doesn't cover?
+
+Write me at mailto:sw@wintermeyer-consulting.de[sw@wintermeyer-consulting.de].
+Feedback, bug reports, kind words, angry words — all welcome.
+
+— Stefan
