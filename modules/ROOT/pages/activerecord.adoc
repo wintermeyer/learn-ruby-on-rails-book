@@ -2077,6 +2077,57 @@ NOTE: If there was no product for a category, the result would be an empty
       array. If no category is associated with an product, then ActiveRecord
       outputs the value `nil` as `Category`.
 
+[.agentic-tip]
+****
+.Agentic Coding Tip: N+1 Queries in Views and Iterators
+The moment you start rendering a list of records that touches
+an association, you are one line away from an N+1 query.
+Claude will often write this in a view or a loop:
+
+[source,erb]
+----
+<% @products.each do |product| %>
+  <%= product.name %> (<%= product.category.name %>)
+<% end %>
+----
+
+and call it done. Every iteration fires a fresh `SELECT *
+FROM categories WHERE id = ?` — twenty products means
+twenty-one database round-trips. The page stays fast on seed
+data, then falls over when the table grows.
+
+The fix is `.includes(...)` in the controller, so Rails
+pre-loads the association in a second query up front:
+
+[source,ruby]
+----
+def index
+  @products = Product.includes(:category).all
+end
+----
+
+Agents don't naturally check for this because the code runs
+cleanly in development. The pitfall only shows up in the
+`log/development.log` (one query becomes twenty-one).
+
+*Rule to add to your project's `CLAUDE.md`:*
+
+[source]
+----
+When generating a view that iterates over records and touches
+an association, add `.includes(:association)` in the
+controller. After editing the controller or the view, open
+`log/development.log` and verify the request produces one
+query for the association, not one per record.
+----
+
+*Prompt shape that catches the issue up front:* "For this
+`/products` page that shows the category name next to each
+product, show me the controller action, the view, and the
+relevant lines of `log/development.log` for one request.
+Count the queries."
+****
+
 [[searching-for-records]]
 === Searching For Records
 
@@ -4292,6 +4343,48 @@ $
 ----
 
 The table was deleted with all data. We are back to square one.
+
+[.agentic-tip]
+****
+.Agentic Coding Tip: Not Every Migration is Reversible
+The rollback above worked cleanly because `add_column` and
+`create_table` are symmetric: Rails knows exactly how to
+reverse them inside a `def change` block. A surprising number
+of real migrations are not symmetric, and an agent will happily
+write a `change` migration that cannot be rolled back, or
+worse, that rolls back by silently destroying data.
+
+The common traps:
+
+* `remove_column :products, :legacy_flag` inside `change` — the
+  rollback recreates the column with no type information and
+  raises `IrreversibleMigration`, or worse, succeeds with the
+  wrong type.
+* `change_column :products, :price, :decimal` — there's no way
+  to know the previous type, so the rollback is ambiguous.
+* Any data migration (iterating records, backfilling a new
+  column, deleting rows) written inside `change`.
+
+*Rule to add to your project's `CLAUDE.md`:*
+
+[source]
+----
+For any migration that removes a column, changes a column
+type, or touches existing row data, don't use `def change`.
+Write explicit `def up` and `def down` methods (or a
+`reversible do |dir|` block for mixed schema + data work).
+After generating the migration file, run
+`bin/rails db:migrate && bin/rails db:rollback && bin/rails
+db:migrate` on a development copy and show me that all three
+steps ran clean before we commit.
+----
+
+The test-the-rollback part is the real teeth of the rule.
+Agents reliably generate migrations that work going forward;
+the reverse direction is where they drift, and the only way
+to catch it before production is to actually run the rollback
+on a throwaway database.
+****
 
 [[which-database-is-used]]
 === Which Database is Used?

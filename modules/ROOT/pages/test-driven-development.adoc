@@ -43,6 +43,48 @@ NOTE: Rails ships two test runners out of the box: Minitest (the
       default — Minitest — because a fresh Rails application
       already has it wired up.
 
+[.agentic-tip]
+****
+.Agentic Coding Tip: Require the Agent to Close the Loop with `bin/rails test`
+The single highest-leverage rule you can add to a Rails
+project's `CLAUDE.md`:
+
+[source]
+----
+After every code change, run `bin/rails test` and paste the
+tail of the output into the conversation. Do not describe a
+task as "done" until I can see a green run on my terminal.
+If a test fails, fix it or explain why the expected
+behaviour changed — never delete a failing test or stub it
+out to make the suite green.
+----
+
+Agents love declaring victory. Without this rule they will
+edit the code, reason about what _should_ happen, and report
+"the change is complete." Sometimes it really is. Often it
+isn't, and you discover the regression three commits later
+when you happen to run the suite yourself.
+
+*Two specific failure modes to watch for in the diff review:*
+
+* A test that used to assert `X == 5` now asserts `X ==
+  _whatever the code produces_`. The test was updated to
+  match the code, not the code to match the intent.
+* A test that was red is now `skip "refactor later"`. Agents
+  sometimes reach for `skip` when they can't immediately see
+  why a test fails.
+
+Both patterns pass CI but leave the safety net shredded.
+A quick `git diff test/` before approving the commit catches
+them in seconds.
+
+The same rule extends naturally to other automated
+checks in the project, `bin/rubocop`, `bin/brakeman`,
+`bin/rails zeitwerk:check`. Whatever the project runs in
+CI, the agent should run locally before claiming the work
+is complete.
+****
+
 [[example-for-a-user-in-a-web-shop]]
 == Example for a User in a Web Shop
 

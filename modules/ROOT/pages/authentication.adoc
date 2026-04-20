@@ -61,6 +61,55 @@ That's it. Your app now has:
   `authenticated?`, a `require_authentication` before-filter,
   and helpers for signing in/out.
 
+[.agentic-tip]
+****
+.Agentic Coding Tip: Don't Let the Agent Roll Its Own Crypto
+Authentication is the one topic where you most need the agent
+to keep its hands in its pockets. When asked to "add a login
+system," Claude can, and sometimes will, reach for one of
+these wrong turns:
+
+* Implementing password hashing with `Digest::SHA256`, or
+  using `BCrypt::Password.create` directly without the
+  `has_secure_password` wrapper around it.
+* Writing a password reset flow with random tokens stored
+  in plaintext instead of using Rails'
+  `generates_token_for :password_reset` + signed URLs.
+* Storing the session in a cookie as `user_id: 42` instead
+  of using the generated `Session` model and revocable
+  browser sessions.
+* Reinventing rate limiting with instance variables or a
+  hand-rolled cache key rather than the `rate_limit` method
+  that ships with `ActionController::Base` in Rails 8.
+
+Each of these is a common, quiet foot-gun: the code works
+in development, passes a simple test, and has a flaw
+(timing attack, unsalted hash, session-fixation, stolen
+token reuse) that will never show up in normal use.
+
+*Rule to add to your project's `CLAUDE.md`:*
+
+[source]
+----
+For authentication, always use `bin/rails generate
+authentication` as the starting point. Build on top of what
+the generator produced: `has_secure_password` for hashing,
+`generates_token_for :password_reset` for reset tokens, the
+`Session` model for logged-in browsers, and
+`ActionController::RateLimiting` / `rate_limit` for
+throttling. Never hand-roll password hashing, token
+generation, or session storage. If a requirement seems to
+need custom crypto, stop and let me make the call before
+writing any code.
+----
+
+Anything more elaborate than email+password (OAuth, 2FA,
+SAML, passkeys) belongs in a dedicated gem (`omniauth`,
+`rodauth-rails`, `webauthn-rails`), not in a hand-written
+integration. Treat "write me a 2FA flow from scratch" as a
+pause-and-confirm moment, not a task to hand off.
+****
+
 == Create a User
 
 There is no default registration view (the generator is about

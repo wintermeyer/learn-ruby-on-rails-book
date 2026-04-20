@@ -491,6 +491,62 @@ You have already encountered these RESTful routes in
 xref:scaffolding-and-rest.adoc#scaffolding-and-rest["Scaffolding and
 REST"]. They are what you need for displaying and editing records.
 
+[.agentic-tip]
+****
+.Agentic Coding Tip: Prefer `resources` Over Loose `get` / `match`
+When you ask Claude to "add a route that archives a post," it
+will very often do the simplest thing that works and drop a
+loose line like this into `config/routes.rb`:
+
+[source,ruby]
+----
+get "posts/:id/archive", to: "posts#archive"
+----
+
+That works. It is also the wrong shape. You lose the named
+helper (`archive_post_path(post)`), the path prefix relative
+to the resource, and the future-proofing against renaming. A
+handful of these accumulated over a year turns `bin/rails
+routes` into an unreadable list.
+
+The shape you want is a `member` or `collection` action
+inside the existing `resources` block:
+
+[source,ruby]
+----
+resources :posts do
+  member do
+    post :archive
+  end
+end
+----
+
+This gives you `archive_post_path(post)` automatically, keeps
+the URL structure consistent with the rest of the resource,
+and makes later changes (nesting, scoping, constraints)
+propagate correctly.
+
+*Rule to add to your project's `CLAUDE.md`:*
+
+[source]
+----
+New routes for an action on an existing resource belong
+inside that resource's `resources` block as `member` (acts on
+one record, takes an `:id`) or `collection` (acts on the set,
+no `:id`). Don't add loose `get`/`post`/`match` lines at the
+top level if a `resources` block already exists for that
+controller. If you believe a non-resourceful route is
+genuinely required, stop and explain why before editing
+`config/routes.rb`.
+----
+
+The `match` keyword is worth flagging separately: it routes
+all HTTP verbs at once, which is almost never what you want.
+If Claude writes `match "/something" => ...` without a
+`via:` clause, push back — GET-only via `get`, multiple-verb
+via `match "/x", via: [:get, :post]`.
+****
+
 [[selecting-specific-routes-with-only-or-except]]
 === Selecting Specific Routes with only: or except:
 

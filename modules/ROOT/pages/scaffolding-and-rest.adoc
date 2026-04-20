@@ -661,6 +661,53 @@ def product_params
 end
 ----
 
+[.agentic-tip]
+****
+.Agentic Coding Tip: Don't Let the Agent Relax `product_params`
+The `product_params` method is the app's allow-list: only
+`name` and `price` can flow in from a form. This is the
+mechanism that stops a hostile request from setting
+`admin: true` or `user_id: 42` by hand-crafting the form
+submission.
+
+When you ask Claude to "add a 'featured' field to Product,"
+it will correctly add the column, update the view, and add
+`:featured` to the allow-list. That is the safe path. When
+it hits friction — a missing parameter error, a test
+failure, or a seemingly unrelated bug in a related model —
+it will sometimes reach for one of these shortcuts instead:
+
+* `params.expect(product: product.attribute_names.map(&:to_sym))` — permit everything the model has
+* `params.require(:product).permit!` — permit literally anything submitted
+* adding admin-only fields (`role`, `verified`, `price`
+  when you wanted only `name` editable) to the allow-list
+  because "the test was failing"
+
+All three are real security holes. The second one is
+catastrophic: any attacker who guesses a column name can
+set it.
+
+*Rule to add to your project's `CLAUDE.md`:*
+
+[source]
+----
+Never use `permit!` or loop-based allow-lists for strong
+parameters. Every attribute must be listed by name. When
+adding a column requires touching `*_params`, add only the
+attributes the current form actually exposes to the
+end-user. Admin-only or system-only columns (role,
+verified, user_id, internal status fields) stay out of the
+user-facing params method entirely, even if a test seems
+to demand them — in that case, the test needs fixing, not
+the allow-list.
+----
+
+When reviewing an agent's diff, the fastest check is to
+grep for `permit!` and for any new `:role` / `:admin` /
+`:verified` / `:_id` entries in a `*_params` method, and
+to challenge every one of them.
+****
+
 [[update-action]]
 ==== update
 
