@@ -52,4 +52,9 @@ A book like this gets better every time a reader sends me a note.
 Write me at mailto:sw@wintermeyer-consulting.de[sw@wintermeyer-consulting.de].
 Feedback, bug reports, kind words, angry words — all welcome.
 
+If you'd rather go through GitHub, the source lives at
+https://github.com/wintermeyer/rails-book[wintermeyer/rails-book].
+Issues, feature requests, pull requests — every one of them is
+appreciated.
+
 — Stefan
