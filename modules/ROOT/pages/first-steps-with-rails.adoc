@@ -309,6 +309,49 @@ at the top and bottom. The missing part can be found in the file
 `app/views/layouts/application.html.erb`. We are going to have a look
 at it later.
 
+[.agentic-tip]
+****
+.Agentic Coding Tip: Always Let the Agent Use `rails generate`
+Claude is fully capable of hand-writing a controller, a
+migration, a model and its matching test. It is also happy
+to do so when asked. You don't want this. A hand-written
+migration skips the timestamp prefix convention. A
+hand-written controller forgets the companion test and the
+helper. A hand-written route quietly drifts from what
+`resources :examples` would have produced. Every one of
+those small drifts is a future bug.
+
+The Rails generators enforce the layout, the naming, and
+the companion files the framework expects. Using them is
+free correctness.
+
+*Rule worth adding once to your project's `CLAUDE.md`:*
+
+[source]
+----
+For any Rails artefact that has a generator (migration,
+model, controller, scaffold, mailer, job, channel, system
+test), always use `bin/rails generate …` instead of writing
+the files by hand. Show me the exact generator command
+before you run it. If you believe a hand-written file is
+genuinely needed, stop and explain why.
+----
+
+The "show me the command first" part matters: the agent will
+sometimes reach for `rails generate scaffold` when `rails
+generate model` was the right move, or pick the wrong
+attribute types (`string` vs `text`, `integer` vs
+`references`). Seeing the command in the conversation lets
+you veto in one second, before any file lands on disk.
+
+The one exception is migrations for something the generator
+can't express (a multi-step data migration, a reversible
+block with custom SQL). Those are still worth scaffolding
+with `bin/rails generate migration <Name>` first, because
+the timestamp and boilerplate are the valuable part. Edit
+the `change` body by hand after.
+****
+
 Please launch the web server to test it:
 
 [source,bash]

@@ -30,6 +30,18 @@ chapters without losing context. Expect to spin up a new Rails
 application more often than you might think. Word of warning:
 I won't sprinkle CSS beauty anywhere. ;-)
 
+Most readers will write Rails code alongside an AI coding
+agent, and this book assumes you are one of them.
+Everything still works if you type every character yourself.
+Throughout the book you'll find boxes labelled *Agentic
+Coding Tip* flagging the places where an agent reliably
+takes a wrong turn, together with the concrete `CLAUDE.md`
+rule or prompt that keeps it honest. Treat those as
+landmines specific to each topic, not as general AI advice.
+A dedicated xref:agentic-coding.adoc[Agentic Coding]
+chapter covers the workflow itself: how to shape your
+`CLAUDE.md`, when to reach for subagents, how to use skills.
+
 Shameless plug: if you'd rather have the training itself —
 personalized, on-site or remote — drop me an email at
 mailto:sw@wintermeyer-consulting.de[sw@wintermeyer-consulting.de].

@@ -1813,6 +1813,47 @@ These two simple definitions form the basis for a good deal of
 ActiveRecord magic. It will generate a bunch of cool new methods for us
 to link both models.
 
+[.agentic-tip]
+****
+.Agentic Coding Tip: Which Side Carries the Foreign Key?
+`belongs_to` carries the foreign key, always. `has_many` and
+`has_one` do not. A `Product` belongs to a `Category`, so
+`products.category_id` exists. `Category` has many products,
+but `categories` gains no column from the relation.
+
+The English sentence is the trap. If you ask Claude "make a
+User have one Profile," it will often invert the schema and
+put `profile_id` on the `users` table because the sentence
+sounded that way. The same mistake is less common with
+`has_many` only because the English plural ("Users have many
+Posts") happens to match how SQL wants it. With `has_one`
+the language routinely leads the model astray.
+
+*Instead of "add the association," ask for the schema first:*
+
+[quote]
+____
+For Profile and User: which table should carry the foreign
+key and why? Show me the migration and both model files
+before generating anything.
+____
+
+Claude will then name the owning side explicitly ("`Profile`
+carries `user_id`, so `belongs_to :user` goes on `Profile`
+and `has_one :profile` goes on `User`"), and you confirm the
+direction before a single file is written.
+
+*Rule to add to your project's `CLAUDE.md`:*
+
+[source]
+----
+When introducing a Rails association, name the table that
+will carry the foreign key before generating any migration
+or model code. Don't infer the direction from the English
+sentence.
+----
+****
+
 [[creating-records]]
 === Creating Records
 
