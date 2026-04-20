@@ -2,27 +2,45 @@
 = Preface
 Stefan Wintermeyer <sw@wintermeyer-consulting.de>
 
-The book you are about to read targets **Ruby 4.0** and
-**Ruby on Rails 8.1**. It's written the way I'd teach these in a
-hands-on workshop: clean, short examples, one concept at a time,
-skip-friendly. Every example has been re-run against these
-versions; screenshots come from fresh Rails 8 scaffolds. Chapters
-added for the 5.2 → 8.1 refresh cover Hotwire (Turbo + Stimulus),
-the built-in authentication generator, and the Solid trifecta
-(Solid Queue / Solid Cache / Solid Cable).
+This is a beginner's book for **Ruby 4.0** and
+**Ruby on Rails 8.1**. No prior Rails experience required; basic
+programming helps, and familiarity with HTML helps more. Every
+example has been re-run against these versions; screenshots
+come from fresh Rails 8 scaffolds. Chapters added for the
+5.2 → 8.1 refresh cover Hotwire (Turbo + Stimulus), the built-in
+authentication generator, and the Solid trifecta (Solid Queue /
+Solid Cache / Solid Cable).
 
-I write for developers who learn best by following clean, short
-examples. Rather than building one big application throughout,
-I prefer smaller stand-alone code — so you can skip pages or
-whole chapters without losing context. On the other hand, I will
-ask you to spin up a new Rails application more often than you
-might expect. Word of warning: I'm not going to sprinkle CSS
-beauty anywhere. ;-)
+I'll not sugar-coat this: Rails is not an easy framework to
+learn. It's one of the best and most effective for shipping
+web applications, and the conventions and machinery that make
+it effective take real time to internalise. That's true of any
+framework worth using.
 
-The sidebar lets you jump to any chapter at any time — nothing is
-locked. That said, the book is written to be read front to back:
-examples build on earlier ones, and the fastest path from zero to
-a working Rails app is still "start at the top and keep going".
+The book doubles as the material I use in my Rails workshops —
+written in a step-by-step shape so you can work through it on
+your own. Short examples, one concept at a time, skip-friendly.
+Rather than growing one big application across chapters, I
+favour smaller stand-alone code so you can skip pages or whole
+chapters without losing context. Expect to spin up a new Rails
+application more often than you might think. Word of warning:
+I won't sprinkle CSS beauty anywhere. ;-)
+
+**Ruby before Rails.** If you've never written Ruby, start with
+the link:https://wintermeyer-consulting.de/ruby/book/[Ruby
+Introduction] — a ten-chapter language primer. This book
+assumes those basics are there.
+
+Curious what the Phoenix-on-the-BEAM equivalent looks like? The
+sibling book is at
+link:https://wintermeyer-consulting.de/phoenix/book/[An Elixir,
+Phoenix and Ash Beginner's Guide].
+
+The sidebar lets you jump to any chapter at any time — nothing
+is locked. That said, the book is written to be read front to
+back: examples build on earlier ones, and the fastest path
+from zero to a working Rails app is still "start at the top
+and keep going".
 
 == Don't be a stranger
 
