@@ -1,4 +1,5 @@
-= Welcome
+[[preface]]
+= Preface
 Stefan Wintermeyer <sw@wintermeyer-consulting.de>
 
 The book you are about to read targets **Ruby 4.0** and
@@ -8,9 +9,18 @@ added for the 5.2 → 8.1 refresh cover Hotwire (Turbo + Stimulus),
 the built-in authentication generator, and the Solid trifecta
 (Solid Queue / Solid Cache / Solid Cable).
 
-Pick a chapter from the sidebar. I recommend reading in order, but
-each chapter stands on its own so you can skip ahead if a topic
-doesn't interest you.
+I write for developers who learn best by following clean, short
+examples. Rather than building one big application throughout,
+I prefer smaller stand-alone code — so you can skip pages or
+whole chapters without losing context. On the other hand, I will
+ask you to spin up a new Rails application more often than you
+might expect. Word of warning: I'm not going to sprinkle CSS
+beauty anywhere. ;-)
+
+The sidebar lets you jump to any chapter at any time — nothing is
+locked. That said, the book is written to be read front to back:
+examples build on earlier ones, and the fastest path from zero to
+a working Rails app is still "start at the top and keep going".
 
 [[dedication]]
 == Dedication
