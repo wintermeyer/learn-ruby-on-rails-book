@@ -4,14 +4,11 @@ Stefan Wintermeyer <sw@wintermeyer-consulting.de>
 
 This is a beginner's book for **Ruby on Rails 8.1**. No prior
 Rails experience required. You will need a working grasp of
-Ruby — if you don't have one yet, start with the
+Ruby — **if you don't have one yet, start with the
 link:https://wintermeyer-consulting.de/ruby/book/[Ruby
-Introduction], a ten-chapter language primer written as the
+Introduction]**, a ten-chapter language primer written as the
 prerequisite for this book. Every example runs on Ruby 4.0 and
 Rails 8.1; screenshots come from fresh Rails 8 scaffolds.
-Chapters added for the 5.2 → 8.1 refresh cover Hotwire (Turbo +
-Stimulus), the built-in authentication generator, and the
-Solid trifecta (Solid Queue / Solid Cache / Solid Cable).
 
 I'll not sugar-coat this: Rails is not an easy framework to
 learn. It's one of the best and most effective for shipping
@@ -28,8 +25,8 @@ chapters without losing context. Expect to spin up a new Rails
 application more often than you might think. Word of warning:
 I won't sprinkle CSS beauty anywhere. ;-)
 
-Curious what the Phoenix equivalent looks like? The sibling
-book for the BEAM is at
+Curious what the Elixir-based Phoenix Framework looks like?
+I've got you covered at
 link:https://wintermeyer-consulting.de/phoenix/book/[Phoenix].
 
 The sidebar lets you jump to any chapter at any time — nothing
