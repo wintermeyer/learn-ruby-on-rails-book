@@ -25,6 +25,10 @@ chapters without losing context. Expect to spin up a new Rails
 application more often than you might think. Word of warning:
 I won't sprinkle CSS beauty anywhere. ;-)
 
+Shameless plug: if you'd rather have the training itself —
+personalized, on-site or remote — drop me an email at
+mailto:sw@wintermeyer-consulting.de[sw@wintermeyer-consulting.de].
+
 Curious what the Elixir-based Phoenix Framework looks like?
 I've got you covered at
 link:https://wintermeyer-consulting.de/phoenix/book/[Phoenix].
