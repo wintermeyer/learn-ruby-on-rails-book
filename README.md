@@ -80,8 +80,12 @@ The runner checks the repo out and executes `scripts/deploy.sh`:
 4. `npx antora --fetch antora-playbook.yml` renders into
    `build/site/`; the UI bundle is pulled from wincon-antora-ui.
 5. Copy `build/site/` → `/var/www/rails-book/releases/<ts>/`.
-6. Atomically swap the `current` symlink.
-7. Prune old releases (keep last 5).
+6. Pre-compress every text asset (`.html`, `.css`, `.js`, `.svg`,
+   `.xml`, `.json`, `.mjs`, `.txt`, `.map`) into `.br` (brotli
+   q11) and `.gz` (gzip -9) siblings so nginx's `brotli_static`
+   / `gzip_static` can serve them with zero CPU on the hot path.
+7. Atomically swap the `current` symlink.
+8. Prune old releases (keep last 5).
 
 Nginx on bremen2 serves `/rails/book/` from
 `/var/www/rails-book/current/book/` and
